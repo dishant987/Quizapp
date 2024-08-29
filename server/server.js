@@ -8,8 +8,8 @@ import connect from "./database/conn.js";
 const app = express();
 config();
 const corsOptions = {
-  origin: "http://localhost:5173",
-  credentials: true,
+  // origin: "http://localhost:5173",
+  origin: process.env.DOMAIN,
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization", "x-csrf-token"],
   preflightContinue: false,
@@ -22,7 +22,6 @@ const port = process.env.PORT || 3000;
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
-// app.use(express.static("public"))
 
 connect()
   .then(() => {
@@ -39,10 +38,10 @@ connect()
 app.use("/api", router);
 
 app.get("/", (req, res) => {
-  res.json("Get Request");
+  res.json("Get Request test");
 });
 
-// app.use((err, req, res, next) => {
-//   console.error(err.stack);
-//   res.status(500).send("Internal Server Error");
-// });
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).send("Internal Server Error");
+});

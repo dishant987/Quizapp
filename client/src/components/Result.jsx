@@ -39,12 +39,12 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 
 const Result = () => {
     const [data, setData] = useState([]);
-    const [cookies] = useCookies(['accessToken']);
+    const [cookies] = useCookies(['quizAccessToken']);
 
     useEffect(() => {
         const fetchData = async () => {
             let userId = '';
-            const accessToken = cookies.accessToken;
+            const accessToken = cookies.quizAccessToken;
 
             const decodedToken = decodeToken(accessToken);
 
@@ -65,7 +65,7 @@ const Result = () => {
         };
 
         fetchData();
-    }, [cookies.accessToken]);
+    }, [cookies.quizAccessToken]);
 
 
     if (!data.length) {

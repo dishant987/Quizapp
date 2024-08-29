@@ -14,7 +14,7 @@ import ToggleColorMode from './ToggleColor';
 import { useCookies } from 'react-cookie';
 import toast from 'react-hot-toast';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useTheme } from './Themecontext';
 
 
@@ -27,20 +27,6 @@ function Navbar() {
     setOpen(newOpen);
   };
 
-
-  const scrollToSection = (sectionId) => {
-    const sectionElement = document.getElementById(sectionId);
-    const offset = 128;
-    if (sectionElement) {
-      const targetScroll = sectionElement.offsetTop - offset;
-      sectionElement.scrollIntoView({ behavior: 'smooth' });
-      window.scrollTo({
-        top: targetScroll,
-        behavior: 'smooth',
-      });
-      setOpen(false);
-    }
-  };
 
   const handleSignOut = async () => {
 
@@ -138,8 +124,9 @@ function Navbar() {
                 <>
 
                   <Button
-                    href='/login'
 
+                    component={Link}
+                    to={'/login'}
                     color="primary"
                     variant="outlined"
                     size="small"
@@ -150,8 +137,9 @@ function Navbar() {
 
                   <Button
                     color="primary"
+                    component={Link}
+                    to={'/signup'}
                     variant="contained"
-                    href='/signup'
                     size="small"
                     sx={{ borderRadius: 15, margin: 1 }}
                   >
@@ -210,8 +198,9 @@ function Navbar() {
                         <Button
                           color="primary"
                           variant="contained"
-                          component="a"
-                          href="/signup"
+                         
+                          component={Link}
+                          to={'/signup'}
                           sx={{ width: '100%' }}
                         >
                           Sign Up
@@ -221,8 +210,8 @@ function Navbar() {
                         <Button
                           color="primary"
                           variant="outlined"
-                          component="a"
-                          href="/login"
+                          component={Link}
+                          to={'/login'}
                           sx={{ width: '100%' }}
                         >
                           Sign In

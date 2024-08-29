@@ -1,6 +1,5 @@
 import Score from "../models/score.js";
 import { User } from "../models/user.js";
-import mongoose from "mongoose";
 
 const generateToken = async function (userId, res) {
   try {

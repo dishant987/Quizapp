@@ -1,11 +1,19 @@
-import React from 'react';
-import { Box, Typography, Button, Container, AppBar, Toolbar, IconButton } from '@mui/material';
+import React, { useEffect } from 'react';
+import { Box, Typography, Button, Container } from '@mui/material';
 import { ArrowForwardIos } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
+import { useCookies } from 'react-cookie';
 
 const Home = () => {
+
     const navigate = useNavigate();
-    const userName = "John Doe"; // Replace with the actual logged-in user's name
+    const [cookies] = useCookies(['quizAccessToken']);
+    useEffect(() => {
+        // Check if the user is logged in by looking for the access token
+        if (cookies.quizAccessToken) {
+            navigate('/quizhome');
+        }
+    }, [cookies, navigate]);
 
     const handleLogin = () => {
         navigate('/login');
@@ -13,7 +21,6 @@ const Home = () => {
 
     return (
         <>
-
             <Container maxWidth="sm">
                 <Box
                     sx={{

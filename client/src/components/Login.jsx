@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
@@ -32,8 +32,14 @@ export default function Login() {
     const [showPassword, setShowPassword] = useState(false);
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
-    const [, setCookie] = useCookies(['quizAccessToken']);
-
+    const [cookies, setCookie] = useCookies(['quizAccessToken']);
+    
+    useEffect(() => {
+        // Check if the user is logged in by looking for the access token
+        if (cookies.quizAccessToken) {
+            navigate('/quizhome');
+        }
+    }, [cookies, navigate]);
     const handleTogglePasswordVisibility = () => {
         setShowPassword((prev) => !prev);
     };

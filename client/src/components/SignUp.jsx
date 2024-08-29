@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Avatar,
   Button,
@@ -27,6 +27,7 @@ import axios from 'axios';
 import toast from 'react-hot-toast';
 import LoadingButton from '@mui/lab/LoadingButton';
 import { useTheme } from '@emotion/react';
+import { useCookies } from 'react-cookie';
 
 const ErrorMessage = ({ children }) => (
   <Typography variant="caption" color="error">
@@ -39,7 +40,15 @@ export default function SignUp() {
   const { mode } = useTheme();
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [cookies] = useCookies(['quizAccessToken']);
   const navigate = useNavigate();
+  useEffect(() => {
+    // Check if the user is logged in by looking for the access token
+    if (cookies.quizAccessToken) {
+      navigate('/quizhome');
+    }
+  }, [cookies, navigate]);
+
 
   const handleTogglePasswordVisibility = () => {
     setShowPassword((prev) => !prev);
@@ -64,7 +73,7 @@ export default function SignUp() {
     console.log(values)
     try {
       const response = await axios.post('http://localhost:3000/api/users/signup', values);
-     
+
       if (response.status === 201 && response.data.message === 'Signup Successfull') {
         toast.success(response.data.message);
         navigate('/login');
