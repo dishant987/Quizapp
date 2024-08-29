@@ -48,10 +48,10 @@ const App = () => {
       element: <LayoutWithNavbar />,
       children: [
         { path: "/", element: <Home /> },
-        { path: "login", element: <Login /> },
-        { path: "signup", element: <SignUp /> },
-        { path: "profile", element: <UserProfile /> },
-        { path: "results", element: <ProtectedRoute><Result /></ProtectedRoute> },
+        { path: "/login", element: <Login /> },
+        { path: "/signup", element: <SignUp /> },
+        { path: "/profile", element: <UserProfile /> },
+        { path: "/results", element: <ProtectedRoute><Result /></ProtectedRoute> },
       ],
     },
     {
