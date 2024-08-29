@@ -92,10 +92,10 @@ function Navbar() {
             >
               <img
                 src={
-                  '/1.jpg'
+                  '/1.png'
                 }
 
-                style={{ marginLeft: "10px", width: "50px", borderRadius: '47%' }}
+                style={{ marginLeft: "10px", width: "110px", borderRadius: '47%' }}
 
                 alt="logo of sitemark"
               />
@@ -198,7 +198,7 @@ function Navbar() {
                         <Button
                           color="primary"
                           variant="contained"
-                         
+
                           component={Link}
                           to={'/signup'}
                           sx={{ width: '100%' }}

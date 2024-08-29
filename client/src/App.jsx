@@ -5,6 +5,7 @@ import {
   createBrowserRouter,
   RouterProvider,
   Outlet,
+  useLocation,
 } from "react-router-dom";
 import Login from './components/Login';
 import SignUp from './components/SignUp';
@@ -19,18 +20,26 @@ import Quiz from './components/Quiz';
 import Result from './components/Result';
 import Home from './components/Home';
 import ProtectedRoute from './components/ProtectedRoute';
+import Footer from './components/Footer';
 
 const App = () => {
   const { mode } = useTheme();
   const defaultTheme = createTheme({ palette: { mode } });
 
+
   // Layout component to conditionally show the Navbar
-  const LayoutWithNavbar = () => (
-    <>
-      <Navbar />
-      <Outlet />
-    </>
-  );
+  const LayoutWithNavbar = () => {
+    const location = useLocation();
+    const hideFooterRoutes = ['/quiz'];
+    const shouldHideFooter = hideFooterRoutes.includes(location.pathname);
+    return (
+      <>
+        <Navbar />
+        <Outlet />
+        {!shouldHideFooter && <Footer />}
+      </>
+    )
+  };
 
   // Routes configuration
   const router = createBrowserRouter([
