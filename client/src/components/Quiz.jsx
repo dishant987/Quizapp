@@ -80,7 +80,7 @@ const App = () => {
         }
 
         try {
-            await axios.post('http://localhost:3000/api/submit-quiz', {
+            await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/submit-quiz`, {
                 questions,
                 selectedAnswers,
                 userId,

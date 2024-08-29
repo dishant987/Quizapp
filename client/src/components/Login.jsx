@@ -33,7 +33,7 @@ export default function Login() {
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
     const [cookies, setCookie] = useCookies(['quizAccessToken']);
-    
+
     useEffect(() => {
         // Check if the user is logged in by looking for the access token
         if (cookies.quizAccessToken) {
@@ -52,7 +52,7 @@ export default function Login() {
     const handleSubmit = async (values) => {
         setLoading(true);
         try {
-            const response = await axios.post('http://localhost:3000/api/users/signin', values);
+            const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/users/signin`, values);
             console.log(response)
             if (response.status === 200 && response.data.message === "Login SuccessFully") {
                 toast.success(response.data.message);
