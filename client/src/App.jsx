@@ -14,8 +14,10 @@ import { Toaster } from 'react-hot-toast';
 import { CookiesProvider } from 'react-cookie';
 import { useTheme } from './components/Themecontext';
 import Questions from './components/Questions';
-import Home from './components/Home';
+import QuizHome from './components/QuizHome';
 import Quiz from './components/Quiz';
+import Result from './components/Result';
+import Home from './components/Home';
 
 const App = () => {
   const { mode } = useTheme();
@@ -35,14 +37,16 @@ const App = () => {
       path: "/",
       element: <LayoutWithNavbar />,
       children: [
+        { path: "/", element: <Home /> },
         { path: "login", element: <Login /> },
         { path: "signup", element: <SignUp /> },
         { path: "profile", element: <UserProfile /> },
+        { path: "results", element: <Result /> },
       ],
     },
     {
       path: "/quizhome",
-      element: <Home />,
+      element: <QuizHome />,
     },
     {
       path: "/quiz",

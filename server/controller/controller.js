@@ -151,7 +151,7 @@ export async function userLogout(req, res) {
 export const submitQuizResult = async (req, res) => {
   try {
     const { questions, selectedAnswers, userId } = req.body;
-    
+
     // Calculate the score
     const correctAnswersCount = questions.reduce((total, question, index) => {
       return (
@@ -180,3 +180,19 @@ export const submitQuizResult = async (req, res) => {
     res.status(500).json({ message: "Server error, please try again later" });
   }
 };
+
+export async function userQuizData(req, res) {
+  try {
+    const { userId } = req.body;
+
+    const data = await Score.find({ user: userId });
+
+    if (!data) {
+      return res.status(404).json({ message: "Data not found" });
+    }
+
+    res.status(200).json(data);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+}

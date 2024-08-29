@@ -1,91 +1,130 @@
-import React from 'react';
-import Confetti from 'react-confetti';
-
+import React, { useState, useEffect } from 'react';
 import {
-    Box,
-    Typography,
-    Paper,
-    List,
-    ListItem,
-    ListItemText,
-    Divider,
+    Box, Typography, Container,
+    Button, Modal, IconButton,
+    Badge
 } from '@mui/material';
+import axios from 'axios';
+import { useCookies } from 'react-cookie';
+import { decodeToken } from '../helper/decode';
+import { styled } from '@mui/material/styles';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell, { tableCellClasses } from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
+import moment from 'moment';
 
-const Result = ({ questions, selectedAnswers }) => {
+const StyledTableCell = styled(TableCell)(({ theme }) => ({
+    [`&.${tableCellClasses.head}`]: {
+        backgroundColor: theme.palette.common.black,
+        color: theme.palette.common.white,
+    },
+    [`&.${tableCellClasses.body}`]: {
+        fontSize: 14,
+    },
+}));
 
+const StyledTableRow = styled(TableRow)(({ theme }) => ({
+    '&:nth-of-type(odd)': {
+        backgroundColor: theme.palette.action.hover,
+    },
+    // hide last border
+    '&:last-child td, &:last-child th': {
+        border: 0,
+    },
+}));
 
-    const getCorrectAnswersCount = () => {
-        return questions.reduce((total, question, index) => {
-            if (selectedAnswers[index] === question.correct_answer) {
-                return total + 1;
+const Result = () => {
+    const [data, setData] = useState([]);
+    const [cookies] = useCookies(['accessToken']);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            let userId = '';
+            const accessToken = cookies.accessToken;
+
+            const decodedToken = decodeToken(accessToken);
+
+            if (decodedToken) {
+                userId = decodedToken._id;
+            } else {
+                return;
             }
-            return total;
-        }, 0);
-    };
+            try {
+                const res = await axios.post('http://localhost:3000/api/userquizdata', {
+                    userId: userId
+                });
+                setData(res.data);
+                console.log(res.data)
+            } catch (error) {
+                console.error("Failed to fetch quiz result:", error);
+            }
+        };
 
-    const score = getCorrectAnswersCount();
+        fetchData();
+    }, [cookies.accessToken]);
+
+
+    if (!data.length) {
+        return (
+            <Container maxWidth="md" sx={{ py: 6 }}>
+                <Typography variant="h3" component="h1" align="center" gutterBottom color="primary">
+                    Quiz Result
+                </Typography>
+                <Typography variant="h6" component="p" align="center">
+                    Loading...
+                </Typography>
+            </Container>
+        );
+    }
+
+
 
     return (
-        <>
-            <Confetti height={'1500px'} recycle={false} />
+        <Container maxWidth="md" sx={{ py: 6, marginTop: 8 }}>
+            <Typography variant="h3" component="h1" align="center" gutterBottom color="primary">
+                Quiz Result
+            </Typography>
+            <TableContainer component={Paper}>
+                <Table sx={{ minWidth: 700 }} aria-label="customized table">
+                    <TableHead>
+                        <TableRow>
+                            <StyledTableCell>Tests</StyledTableCell>
+                            <StyledTableCell >Achived</StyledTableCell>
+                            <StyledTableCell>Points</StyledTableCell>
+                            <StyledTableCell>Time</StyledTableCell>
 
-            <Box sx={{ position: 'relative' }}>
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
+                        {data.map((row, index) => (
+                            <StyledTableRow key={row._id}>
+                                <StyledTableCell component="th" scope="row">
+                                    {index + 1}
+                                </StyledTableCell>
+                                <StyledTableCell  >
+                                    <Badge badgeContent={row.achived} color={row.achived === "pass" ? "success" : "error"}>
 
-                <Paper elevation={3} sx={{ p: 4 }}>
-                    <Typography variant="h4" component="h2" align="center" gutterBottom>
-                        Quiz Results
-                    </Typography>
-                    <Typography variant="h6" align="center" gutterBottom>
-                        You scored {score} out of {questions.length}
-                    </Typography>
+                                    </Badge>
+                                </StyledTableCell>
+                                <StyledTableCell >{row.points} of 10</StyledTableCell>
+                                <StyledTableCell >{moment(row.createdAt).fromNow()}</StyledTableCell>
 
-                    <List>
-                        {questions.map((question, index) => (
-                            <React.Fragment key={index}>
-                                <ListItem alignItems="flex-start">
-                                    <ListItemText
-                                        primary={
-                                            <Typography variant="subtitle1">
-                                                {index + 1}. {question.question}
-                                            </Typography>
-                                        }
-                                        secondary={
-                                            <>
-                                                <Typography
-                                                    variant="body2"
-                                                    color={
-                                                        selectedAnswers[index] === question.correct_answer
-                                                            ? 'success.main'
-                                                            : 'error.main'
-                                                    }
-                                                    sx={{ display: 'block', mb: 1 }}
-                                                >
-                                                    <strong>Your Answer:</strong>{' '}
-                                                    <span
-                                                        dangerouslySetInnerHTML={{
-                                                            __html: selectedAnswers[index] || 'Not Answered',
-                                                        }}
-                                                    />
-                                                </Typography>
-                                                <Typography variant="body2" color="primary.main">
-                                                    <strong>Correct Answer:</strong>{' '}
-                                                    <span
-                                                        dangerouslySetInnerHTML={{
-                                                            __html: question.correct_answer,
-                                                        }}
-                                                    />
-                                                </Typography>
-                                            </>
-                                        }
-                                    />
-                                </ListItem>
-                                {index < questions.length - 1 && <Divider />}
-                            </React.Fragment>
+
+
+                            </StyledTableRow>
                         ))}
-                    </List>
-                </Paper>
-            </Box>
-        </>
+                    </TableBody>
+                </Table>
+            </TableContainer>
+
+
+
+
+        </Container>
     );
 };
 

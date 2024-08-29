@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, Typography, FormControlLabel, Radio, RadioGroup, Button, Container } from '@mui/material';
 
-const Questions = ({ questions, currentQuestion, selectedAnswers, handleAnswerSelect, handleNext, handlePrevious, handleSubmitQuiz }) => {
+const Questions = ({ questions, currentQuestion, selectedAnswers, handleAnswerSelect, handleNext, handleSubmitQuiz, timer }) => {
 
     if (!questions || questions.length === 0) {
         return <div>Loading...</div>;
@@ -16,8 +16,11 @@ const Questions = ({ questions, currentQuestion, selectedAnswers, handleAnswerSe
                 <Typography variant="h5" component="h2" align="center" gutterBottom>
                     Question {currentQuestion + 1} of {questions.length}
                 </Typography>
-                <Box sx={{ mb: 4 }}>
+                <Box sx={{ mb: 2, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                     <Typography variant="body1" sx={{ mb: 2 }} dangerouslySetInnerHTML={{ __html: question.question }} />
+                    <Typography variant="h6" color={timer <= 5 ? 'error' : 'textPrimary'}>
+                        {timer}s
+                    </Typography>
                 </Box>
                 <RadioGroup
                     name={`question-${currentQuestion}`}
@@ -58,15 +61,7 @@ const Questions = ({ questions, currentQuestion, selectedAnswers, handleAnswerSe
                         />
                     ))}
                 </RadioGroup>
-                <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 4 }}>
-                    <Button
-                        variant="outlined"
-                        color="primary"
-                        onClick={handlePrevious}
-                        disabled={currentQuestion === 0}
-                    >
-                        Previous
-                    </Button>
+                <Box sx={{ display: 'flex', justifyContent: 'flex-end', mt: 4 }}>
                     {currentQuestion < questions.length - 1 ? (
                         <Button
                             variant="contained"
