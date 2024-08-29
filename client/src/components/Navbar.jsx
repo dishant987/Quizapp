@@ -21,7 +21,7 @@ import { useTheme } from './Themecontext';
 function Navbar() {
   const { mode, toggleColorMode } = useTheme();
   const [open, setOpen] = useState(false);
-  const [cookies, , removeCookie] = useCookies(['accessToken']);
+  const [cookies, , removeCookie] = useCookies(['quizAccessToken']);
 
   const toggleDrawer = (newOpen) => () => {
     setOpen(newOpen);
@@ -49,7 +49,7 @@ function Navbar() {
       console.log(response.data)
       if (response.data.statuscode === 200 && response.data.message === "User Logged Out") {
         toast.success(response.data.message);
-        removeCookie('accessToken');
+        removeCookie('quizAccessToken');
         window.location.href = '/';
       }
     } catch (error) {
@@ -58,7 +58,7 @@ function Navbar() {
 
   };
 
-  const isLoggedIn = !!cookies.accessToken;
+  const isLoggedIn = !!cookies.quizAccessToken;
 
   return (
     <div>

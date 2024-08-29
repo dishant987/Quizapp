@@ -32,7 +32,7 @@ export default function Login() {
     const [showPassword, setShowPassword] = useState(false);
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
-    const [, setCookie] = useCookies(['token']);
+    const [, setCookie] = useCookies(['quizAccessToken']);
 
     const handleTogglePasswordVisibility = () => {
         setShowPassword((prev) => !prev);
@@ -54,7 +54,7 @@ export default function Login() {
                 //cookie with a 1-day expiration
                 const expires = new Date();
                 expires.setDate(expires.getDate() + 1);
-                setCookie('accessToken', response.data.accessToken, { path: '/', expires });
+                setCookie('quizAccessToken', response.data.accessToken, { path: '/', expires });
                 navigate('/quizhome');
             } else {
                 console.log(response.data);

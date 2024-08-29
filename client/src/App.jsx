@@ -18,6 +18,7 @@ import QuizHome from './components/QuizHome';
 import Quiz from './components/Quiz';
 import Result from './components/Result';
 import Home from './components/Home';
+import ProtectedRoute from './components/ProtectedRoute';
 
 const App = () => {
   const { mode } = useTheme();
@@ -41,16 +42,16 @@ const App = () => {
         { path: "login", element: <Login /> },
         { path: "signup", element: <SignUp /> },
         { path: "profile", element: <UserProfile /> },
-        { path: "results", element: <Result /> },
+        { path: "results", element: <ProtectedRoute><Result /></ProtectedRoute> },
       ],
     },
     {
       path: "/quizhome",
-      element: <QuizHome />,
+      element: <ProtectedRoute><QuizHome /></ProtectedRoute>,
     },
     {
       path: "/quiz",
-      element: <Quiz />,
+      element: <ProtectedRoute> <Quiz /></ProtectedRoute>,
     },
   ]);
 

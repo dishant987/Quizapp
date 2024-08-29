@@ -24,23 +24,23 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 export default function SignUp() {
-  const [cookies] = useCookies(['accessToken']);
+  const [cookies] = useCookies(['quizAccessToken']);
   const [userData, setUserData] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!cookies.accessToken) {
+    if (!cookies.quizAccessToken) {
       navigate('/');
     } else {
       try {
-        const decodedToken = jwtDecode(cookies.accessToken);
+        const decodedToken = jwtDecode(cookies.quizAccessToken);
         setUserData(decodedToken);
       } catch (error) {
         console.error('Failed to decode token:', error);
         navigate('/');
       }
     }
-  }, [cookies.accessToken, navigate]);
+  }, [cookies.quizAccessToken, navigate]);
 
   const isLoading = !userData;
 

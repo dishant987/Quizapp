@@ -13,7 +13,7 @@ const App = () => {
     const [loading, setLoading] = useState(true);
     const [timer, setTimer] = useState(20); // Timer state
     const [isTimeUp, setIsTimeUp] = useState(false); // Track if time is up
-    const [cookies] = useCookies(['accessToken']);
+    const [cookies] = useCookies(['quizAccessToken']);
     const navigate = useNavigate();
 
     const fetchQuizData = async () => {
@@ -70,7 +70,7 @@ const App = () => {
 
     const handleSubmitQuiz = async () => {
         let userId = '';
-        const accessToken = cookies.accessToken;
+        const accessToken = cookies.quizAccessToken;
         const decodedToken = decodeToken(accessToken);
 
         if (decodedToken) {
