@@ -27,7 +27,7 @@ function Navbar() {
     setOpen(newOpen);
   };
 
-
+  const navigate = useNavigate()
   const handleSignOut = async () => {
 
     try {
@@ -36,7 +36,7 @@ function Navbar() {
       if (response.status === 200 && response.data.message === "User Logged Out") {
         toast.success(response.data.message);
         removeCookie('quizAccessToken');
-        window.location.href = '/';
+        navigate('/')
       }
     } catch (error) {
       // console.log(error)

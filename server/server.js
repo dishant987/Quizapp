@@ -4,6 +4,7 @@ import cors from "cors";
 import cookieParser from "cookie-parser";
 import router from "./router/route.js";
 import connect from "./database/conn.js";
+import cron from "node-cron";
 
 config();
 const app = express();
@@ -47,3 +48,10 @@ app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).send("Internal Server Error");
 });
+
+
+cron.schedule("* * * * *", () => {
+  console.log("Cron job running every minute");
+});
+
+
