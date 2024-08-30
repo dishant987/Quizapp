@@ -114,11 +114,14 @@ export const signIn = async (req, res) => {
       secure: false,
     };
 
-    return res.status(200).cookie("quizAccessToken", accessToken, options).json({
-      user: LoggedInUser,
-      accessToken,
-      message: "Login SuccessFully",
-    });
+    return res
+      .status(200)
+      .cookie("quizAccessToken", accessToken, options)
+      .json({
+        user: LoggedInUser,
+        accessToken,
+        message: "Login SuccessFully",
+      });
   } catch (error) {
     console.log(error);
     res.status(500).json({
@@ -129,20 +132,12 @@ export const signIn = async (req, res) => {
 
 //logout
 export async function userLogout(req, res) {
-  await User.findByIdAndUpdate(
-    req.user._id,
-    {
-      $set: { refreshToken: null },
-    },
-    { new: true }
-  );
-
   const options = {
     httpOnly: true,
     secure: true,
   };
 
-  return res.status(200).clearCookie("accessToken", options).json({
+  return res.status(200).clearCookie("quizAccessToken", options).json({
     message: "User Logged Out",
   });
 }
