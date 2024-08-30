@@ -48,12 +48,12 @@ export default function Login() {
         email: Yup.string().email('Invalid email').required('Required'),
         password: Yup.string().required('Required'),
     });
-
+    console.log(import.meta.env.VITE_BACKEND_URL)
     const handleSubmit = async (values) => {
         setLoading(true);
         try {
             const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/users/signin`, values);
-            console.log(response)
+            
             if (response.status === 200 && response.data.message === "Login SuccessFully") {
                 toast.success(response.data.message);
 
@@ -62,8 +62,6 @@ export default function Login() {
                 expires.setDate(expires.getDate() + 1);
                 setCookie('quizAccessToken', response.data.accessToken, { path: '/', expires });
                 navigate('/quizhome');
-            } else {
-                console.log(response.data);
             }
         } catch (error) {
             console.log(error);
