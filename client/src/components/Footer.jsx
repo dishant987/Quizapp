@@ -112,7 +112,7 @@ export default function Footer() {
                         <Link color="text.secondary" variant="body2" component={RouterLink} to="/">
                             About us
                         </Link>
-                        <Link color="text.secondary" variant="body2"  component={RouterLink} to="/">
+                        <Link color="text.secondary" variant="body2" component={RouterLink} to="/">
                             Careers
                         </Link>
                         <Link color="text.secondary" variant="body2" component={RouterLink} to="/">
@@ -133,16 +133,17 @@ export default function Footer() {
                     <div>
                         Made with <Favorite sx={{ mx: 0.5, fontSize: 'inherit', color: 'red' }} /> by{' '}
                         <Link
-                           component={RouterLink}
+                            component={RouterLink}
                             to="/about" // Replace with the appropriate path
                             target="_blank"
                             rel="noopener noreferrer"
                             sx={{ ml: 0.5, textDecoration: 'underline' }}
                         >
                             Dishant
-                            &nbsp;
-                            {new Date().getFullYear()}
+                          
+
                         </Link>
+                        &nbsp;{new Date().getFullYear()}
                     </div>
                     <Stack
                         direction="row"
