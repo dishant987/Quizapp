@@ -53,7 +53,7 @@ export default function Login() {
         setLoading(true);
         try {
             const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/users/signin`, values);
-            
+
             if (response.status === 200 && response.data.message === "Login SuccessFully") {
                 toast.success(response.data.message);
 
@@ -117,6 +117,7 @@ export default function Login() {
                                 <Form>
                                     <Field
                                         margin="normal"
+                                        size="small"
                                         as={TextField}
                                         fullWidth
                                         id="email"
@@ -126,11 +127,17 @@ export default function Login() {
                                         autoFocus
                                         error={errors.email && touched.email}
                                         helperText={errors.email && touched.email ? <ErrorMessage children={errors.email} /> : null}
+                                        sx={{
+                                            '& .MuiTextField-root': {
+                                                size: { xs: 'small' }, // Small size on mobile
+                                            },
+                                        }}
                                     />
                                     <Field
                                         margin="normal"
                                         as={TextField}
                                         fullWidth
+                                          size="small"
                                         name="password"
                                         label="Password"
                                         type={showPassword ? 'text' : 'password'}
@@ -158,6 +165,7 @@ export default function Login() {
                                         </LoadingButton>
                                     ) : (
                                         <Button
+                                        size='small'
                                             type="submit"
                                             fullWidth
                                             variant="contained"

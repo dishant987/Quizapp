@@ -122,6 +122,7 @@ export default function SignUp() {
                     <Grid container spacing={2}>
                       <Grid item xs={12}>
                         <Field
+                          size='small'
                           as={TextField}
                           autoFocus
                           fullWidth
@@ -135,6 +136,7 @@ export default function SignUp() {
                       </Grid>
                       <Grid item xs={12}>
                         <Field
+                          size='small'
                           as={TextField}
                           fullWidth
                           error={errors.email && touched.email}
@@ -147,6 +149,7 @@ export default function SignUp() {
                       </Grid>
                       <Grid item xs={12}>
                         <Field
+                          size='small'
                           as={TextField}
                           fullWidth
                           error={errors.password && touched.password}
@@ -184,7 +187,7 @@ export default function SignUp() {
                       </Grid>
                     </Grid>
 
-                    <LoadingButton type="submit" fullWidth sx={{ mt: 3, mb: 2 }} loading={loading} variant="contained">
+                    <LoadingButton size='small' type="submit" fullWidth sx={{ mt: 3, mb: 2 }} loading={loading} variant="contained">
                       Submit
                     </LoadingButton>
 
