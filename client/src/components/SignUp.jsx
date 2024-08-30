@@ -70,7 +70,7 @@ export default function SignUp() {
 
   const handleSubmit = async (values) => {
     setLoading(true);
-    console.log(values)
+    // console.log(values)
     try {
       const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/users/signup`, values);
 

@@ -32,14 +32,14 @@ function Navbar() {
 
     try {
       const response = await axios.post('http://localhost:3000/api/users/logout', {}, { withCredentials: true });
-      console.log(response.data)
+      // console.log(response.data)
       if (response.data.statuscode === 200 && response.data.message === "User Logged Out") {
         toast.success(response.data.message);
         removeCookie('quizAccessToken');
         window.location.href = '/';
       }
     } catch (error) {
-      console.log(error)
+      // console.log(error)
     }
 
   };

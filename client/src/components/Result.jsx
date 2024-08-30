@@ -58,7 +58,7 @@ const Result = () => {
                     userId: userId
                 });
                 setData(res.data);
-                console.log(res.data)
+                // console.log(res.data)
             } catch (error) {
                 console.error("Failed to fetch quiz result:", error);
             }

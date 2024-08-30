@@ -48,7 +48,7 @@ export default function Login() {
         email: Yup.string().email('Invalid email').required('Required'),
         password: Yup.string().required('Required'),
     });
-    console.log(import.meta.env.VITE_BACKEND_URL)
+    // console.log(import.meta.env.VITE_BACKEND_URL)
     const handleSubmit = async (values) => {
         setLoading(true);
         try {
@@ -64,7 +64,7 @@ export default function Login() {
                 navigate('/quizhome');
             }
         } catch (error) {
-            console.log(error);
+            // console.log(error);
             if (error.response) {
                 if (error.response.status === 404 && error.response.data.message === "User does not exist") {
                     return toast.error(error.response.data.message);
