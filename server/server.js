@@ -12,6 +12,7 @@ const corsOptions = {
   origin: process.env.DOMAIN,
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization", "x-csrf-token"],
+  credentials: true,
   preflightContinue: false,
   optionsSuccessStatus: 204,
 };
