@@ -33,7 +33,7 @@ function Navbar() {
     try {
       const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/users/logout`, {}, { withCredentials: true });
       // console.log(response.data)
-      if (response.data.statuscode === 200 && response.data.message === "User Logged Out") {
+      if (response.status === 200 && response.data.message === "User Logged Out") {
         toast.success(response.data.message);
         removeCookie('quizAccessToken');
         window.location.href = '/';
