@@ -51,13 +51,14 @@ const App = () => {
         { path: "/login", element: <Login /> },
         { path: "/signup", element: <SignUp /> },
         { path: "/profile", element: <UserProfile /> },
+        {
+          path: "/quizhome",
+          element: <ProtectedRoute><QuizHome /></ProtectedRoute>,
+        },
         { path: "/results", element: <ProtectedRoute><Result /></ProtectedRoute> },
       ],
     },
-    {
-      path: "/quizhome",
-      element: <ProtectedRoute><QuizHome /></ProtectedRoute>,
-    },
+
     {
       path: "/quiz",
       element: <ProtectedRoute> <Quiz /></ProtectedRoute>,
