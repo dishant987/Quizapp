@@ -4,7 +4,7 @@ import { User } from "../models/user.js";
 export const verifyJWT = async (req, res, next) => {
   try {
     const token =
-      req.cookies?.accessToken ||
+      req.cookies?.quizAccessToken ||
       req.header("Authorization")?.replace("Bearer ", "");
     console.log(token);
     if (!token) {
@@ -16,9 +16,7 @@ export const verifyJWT = async (req, res, next) => {
 
     const decodedToken = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
     // console.log(decodedToken);
-    const user = await User.findById(decodedToken._id).select(
-      "-password "
-    );
+    const user = await User.findById(decodedToken._id).select("-password ");
     if (!user) {
       return res.json({
         statuscode: 401,

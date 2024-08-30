@@ -5,8 +5,8 @@ import cookieParser from "cookie-parser";
 import router from "./router/route.js";
 import connect from "./database/conn.js";
 
-const app = express();
 config();
+const app = express();
 const corsOptions = {
   // origin: "http://localhost:5173",
   origin: process.env.DOMAIN,
