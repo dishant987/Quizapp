@@ -26,7 +26,7 @@ import * as Yup from 'yup';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 import LoadingButton from '@mui/lab/LoadingButton';
-import { useTheme } from '@emotion/react';
+import { useTheme } from './Themecontext';
 import { useCookies } from 'react-cookie';
 
 const ErrorMessage = ({ children }) => (
@@ -200,7 +200,7 @@ export default function SignUp() {
                     <Grid container justifyContent="flex-end">
                       <Grid item>
                         <Link to="/login" style={{ color: mode == 'dark' ? 'white' : '' }} variant="body2">
-                          Already have an account? Sign in
+                          {"Already have an account? Sign in"}
                         </Link>
                       </Grid>
                     </Grid>
