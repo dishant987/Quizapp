@@ -56,7 +56,12 @@ export default function SignUp() {
 
   const SignupSchema = Yup.object().shape({
     username: Yup.string().min(4, 'Too Short!').max(20, 'Too Long!').required('Required'),
-    email: Yup.string().email('Invalid email').required('Required'),
+    email: Yup.string()
+      .matches(
+        /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+        'Invalid email format'
+      )
+      .required('Required'),
     password: Yup.string()
       .min(6, 'Too Short')
       .max(40, 'Too Long')
@@ -67,6 +72,7 @@ export default function SignUp() {
       ),
     gender: Yup.string().required('Required'),
   });
+
 
   const handleSubmit = async (values) => {
     setLoading(true);
