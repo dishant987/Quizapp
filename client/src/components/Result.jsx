@@ -102,7 +102,7 @@ const Result = () => {
                 <Button
                     variant="contained"
                     color="primary"
-                    onClick={() => navigate("/quiz")} // change route if needed
+                    onClick={() => navigate("/quizhome")} // change route if needed
                 >
                     Start Quiz
                 </Button>

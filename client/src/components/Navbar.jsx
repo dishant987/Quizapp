@@ -116,7 +116,7 @@ function Navbar() {
                     color="primary"
                     variant="contained"
                     size="small"
-                    onClick={() => navigate('/result')}
+                    onClick={() => navigate('/results')}
                     sx={{ borderRadius: 15, margin: 1 }}
                   >
                     Result
