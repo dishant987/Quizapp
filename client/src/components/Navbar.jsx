@@ -111,15 +111,26 @@ function Navbar() {
             >
               <ToggleColorMode mode={mode} toggleColorMode={toggleColorMode} />
               {isLoggedIn ? (
-                <Button
-                  color="primary"
-                  variant="contained"
-                  size="small"
-                  onClick={handleSignOut}
-                  sx={{ borderRadius: 15, margin: 1 }}
-                >
-                  Sign Out
-                </Button>
+                <>
+                  <Button
+                    color="primary"
+                    variant="contained"
+                    size="small"
+                    onClick={() => navigate('/result')}
+                    sx={{ borderRadius: 15, margin: 1 }}
+                  >
+                    Result
+                  </Button>
+                  <Button
+                    color="primary"
+                    variant="contained"
+                    size="small"
+                    onClick={handleSignOut}
+                    sx={{ borderRadius: 15, margin: 1 }}
+                  >
+                    Sign Out
+                  </Button>
+                </>
               ) : (
                 <>
 

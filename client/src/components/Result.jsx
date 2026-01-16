@@ -16,6 +16,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import moment from 'moment';
+import { useNavigate } from 'react-router-dom';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
@@ -40,6 +41,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 const Result = () => {
     const [data, setData] = useState([]);
     const [cookies] = useCookies(['quizAccessToken']);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchData = async () => {
@@ -85,9 +87,26 @@ const Result = () => {
 
     return (
         <Container maxWidth="md" sx={{ py: 6, marginTop: 8 }}>
-            <Typography variant="h3" component="h1" align="center" gutterBottom color="primary">
-                Quiz Result
-            </Typography>
+            <Box
+                sx={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                    mb: 3,
+                }}
+            >
+                <Typography variant="h3" component="h1" color="primary">
+                    Quiz Result
+                </Typography>
+
+                <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={() => navigate("/quiz")} // change route if needed
+                >
+                    Start Quiz
+                </Button>
+            </Box>
             <TableContainer component={Paper}>
                 <Table sx={{ minWidth: 700 }} aria-label="customized table">
                     <TableHead>
